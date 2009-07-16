@@ -82,5 +82,5 @@ int main(int argc, char *argv[])
 	if (size < 0)
 		return 1;
 
-	return allocate(argv[2], size);
+	return (allocate(argv[2], size) == 0) ? 0 : 1;
 }
