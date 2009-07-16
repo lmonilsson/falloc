@@ -42,9 +42,13 @@ int main(int argc, char *argv[])
 	errors += test_parse_size("a", -1);
 	errors += test_parse_size("1a", -1);
 	errors += test_parse_size("a1", -1);
+
 	errors += test_parse_size("", -1);
+	errors += test_parse_size(" ", -1);
+
 	errors += test_parse_size("1.5", -1);
 	errors += test_parse_size("1,5", -1);
+
 	errors += test_parse_size("-1", -1);
 	errors += test_parse_size("9223372036854775808", -1); // Oversized
 
