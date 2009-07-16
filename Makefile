@@ -16,6 +16,10 @@ $(TEST_EXEC): $(TEST_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(TEST_OBJS)
 
 test: $(TEST_EXEC)
+	./$(TEST_EXEC)
+
+main.o: parse.h
+testing.o: parse.h
 
 clean:
 	rm -f $(EXEC)
