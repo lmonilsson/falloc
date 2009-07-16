@@ -52,7 +52,7 @@ int do_allocate(int fd, long long size)
 {
 	if (ftruncate(fd, size) < 0) {
 		perror("ftruncate");
-		return 1;
+		return -1;
 	}
 
 	return 0;
@@ -62,7 +62,7 @@ int allocate(const char *filename, long long size) {
 	int fd = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 	if (fd < 0) {
 		perror(filename);
-		return 1;
+		return -1;
 	}
 
 	int ret = do_allocate(fd, size);
