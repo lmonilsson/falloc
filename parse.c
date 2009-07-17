@@ -26,7 +26,7 @@ long long parse_size(const char *str)
 
 	if (errno == ERANGE || size < 0) {
 		fprintf(stderr,
-			"Size out of range; it must be within 0 and %d bytes.\n",
+			"Size out of range; it must be within 0 and %lld bytes.\n",
 			LLONG_MAX);
 		return -1;
 	}
@@ -52,7 +52,7 @@ long long parse_size(const char *str)
 
 		if (size == -1) {
 			fprintf(stderr,
-				"Size out of range; it must be within 0 and %d bytes.\n",
+				"Size out of range; it must be within 0 and %lld bytes.\n",
 				LLONG_MAX);
 			return -1;
 		}
