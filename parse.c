@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <limits.h>
 
-long long multiply_by_1024(long long start, int times)
+static long long multiply_by_1024(long long start, int times)
 {
 	while (times--) {
 		if (start > LLONG_MAX / 1024)
