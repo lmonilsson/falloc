@@ -51,6 +51,7 @@ int main(int argc, char *argv[])
 
 	errors += test_parse_size("-1", -1);
 	errors += test_parse_size("9223372036854775808", -1); // Oversized
+	errors += test_parse_size("922337203685477580k", -1); // Oversized
 
 	printf("\n");
 	if (errors)

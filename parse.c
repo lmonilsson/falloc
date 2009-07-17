@@ -4,7 +4,20 @@
 #include <ctype.h>
 #include <limits.h>
 
-long long parse_size(const char *str) {
+long long multiply_by_1024(long long start, int times)
+{
+	while (times--) {
+		if (start > LLONG_MAX / 1024)
+			return -1;
+		else
+			start *= 1024;
+	}
+
+	return start;
+}
+
+long long parse_size(const char *str)
+{
 	char *ptr;
 	long long size;
 
@@ -24,16 +37,23 @@ long long parse_size(const char *str) {
 	}
 
 	if (*ptr != '\0') {
-		char c = tolower(*ptr);
+		char suffix = tolower(*ptr);
 
-		if (c == 'k')
-			size *= 1024;
-		else if (c == 'm')
-			size *= 1024 * 1024;
-		else if (c == 'g')
-			size *= 1024 * 1024 * 1024;
+		if (suffix == 'k')
+			size = multiply_by_1024(size, 1);
+		else if (suffix == 'm')
+			size = multiply_by_1024(size, 2);
+		else if (suffix == 'g')
+			size = multiply_by_1024(size, 3);
 		else {
-			fprintf(stderr, "Invalid suffix specified.\n");
+			fprintf(stderr, "Invalid suffix '%c' specified.\n", suffix);
+			return -1;
+		}
+
+		if (size == -1) {
+			fprintf(stderr,
+				"Size out of range; it must be within 0 and %d bytes.\n",
+				LLONG_MAX);
 			return -1;
 		}
 	}
