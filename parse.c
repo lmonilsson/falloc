@@ -4,13 +4,17 @@
 #include <ctype.h>
 #include <limits.h>
 
-static long long multiply_by_1024(long long start, int times)
+#include "options.h"
+
+static long long multiply(long long start, int times)
 {
+	int multiplier = fallocate_options.byte_multiplier;
+
 	while (times--) {
-		if (start > LLONG_MAX / 1024)
+		if (start > LLONG_MAX / multiplier)
 			return -1;
 		else
-			start *= 1024;
+			start *= multiplier;
 	}
 
 	return start;
@@ -40,11 +44,11 @@ long long parse_size(const char *str)
 		char suffix = tolower(*ptr);
 
 		if (suffix == 'k')
-			size = multiply_by_1024(size, 1);
+			size = multiply(size, 1);
 		else if (suffix == 'm')
-			size = multiply_by_1024(size, 2);
+			size = multiply(size, 2);
 		else if (suffix == 'g')
-			size = multiply_by_1024(size, 3);
+			size = multiply(size, 3);
 		else {
 			fprintf(stderr, "Invalid suffix '%c' specified.\n", suffix);
 			return -1;

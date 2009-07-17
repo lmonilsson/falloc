@@ -2,6 +2,7 @@
 #include <limits.h>
 
 #include "parse.h"
+#include "options.h"
 
 int test_parse_size(const char *str, long long expected)
 {
@@ -52,6 +53,10 @@ int main(int argc, char *argv[])
 	errors += test_parse_size("-1", -1);
 	errors += test_parse_size("9223372036854775808", -1); // Oversized
 	errors += test_parse_size("922337203685477580k", -1); // Oversized
+
+	// Switch byte multiplier.
+	fallocate_options.byte_multiplier = 1000;
+	errors += test_parse_size("1k", 1000);
 
 	printf("\n");
 	if (errors)
