@@ -25,5 +25,6 @@ testing.o: parse.h options.h
 
 clean:
 	rm -f $(EXEC)
-	rm -f $(TEST_EXEC)
 	rm -f $(OBJS)
+	rm -f $(TEST_EXEC)
+	rm -f $(TEST_OBJS)
