@@ -13,19 +13,22 @@ struct fallocate_options fallocate_options = {
 int parse_options(int argc, char *argv[])
 {
 	int c;
-	while ((c = getopt(argc, argv, "hfbs")) != -1) {
+	while ((c = getopt(argc, argv, "hbsfn")) != -1) {
 		switch (c) {
 		case 'h':
 			fallocate_options.help = 1;
 			return 0;
-		case 'f':
-			fallocate_options.force = 1;
-			break;
 		case 'b':
 			fallocate_options.byte_multiplier = 1024;
 			break;
 		case 's':
 			fallocate_options.byte_multiplier = 1000;
+			break;
+		case 'f':
+			fallocate_options.force = 1;
+			break;
+		case 'n':
+			fallocate_options.force = 0;
 			break;
 		default:
 			return -1;
