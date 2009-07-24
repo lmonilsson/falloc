@@ -6,7 +6,19 @@
 #include "options.h"
 
 void print_usage(const char *program) {
-	fprintf(stderr, "Usage: %s [OPTIONS] SIZE FILE\n", program);
+	fprintf(stderr,
+"Usage: %s [OPTIONS] SIZE FILE\n"
+"Create empty FILE with size SIZE\n"
+"SIZE is the number of bytes to allocate, which may have a size suffix (k, m, g)\n"
+"\n"
+"Options:\n"
+"  -h  show this help message\n"
+"  -b  use binary sizes (powers of 1024) for the suffixes     (default)\n"
+"  -s  use SI sizes (powers of 1000) for the suffixes\n"
+"  -n  do not perform the operation if FILE exists            (default)\n"
+"  -f  force the operation even if FILE already exists, which\n"
+"        may either extend or truncate the file\n"
+			,program);
 }
 
 int do_allocate(int fd, long long size)
