@@ -6,7 +6,7 @@
 
 #include "options.h"
 
-static long long multiply(long long start, int times)
+static long long checked_multiply(long long start, int times)
 {
 	int multiplier = fallocate_options.byte_multiplier;
 
@@ -44,11 +44,11 @@ long long parse_size(const char *str)
 		char suffix = tolower(*ptr);
 
 		if (suffix == 'k')
-			size = multiply(size, 1);
+			size = checked_multiply(size, 1);
 		else if (suffix == 'm')
-			size = multiply(size, 2);
+			size = checked_multiply(size, 2);
 		else if (suffix == 'g')
-			size = multiply(size, 3);
+			size = checked_multiply(size, 3);
 		else {
 			fprintf(stderr, "Invalid suffix '%c' specified.\n", suffix);
 			return -1;
