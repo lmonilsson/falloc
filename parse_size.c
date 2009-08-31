@@ -40,24 +40,22 @@ long long parse_size(const char *str)
 		return -1;
 	}
 
-	if (*ptr != '\0') {
-		if (!strcasecmp(ptr, "k"))
-			size = checked_multiply(size, 1);
-		else if (!strcasecmp(ptr, "m"))
-			size = checked_multiply(size, 2);
-		else if (!strcasecmp(ptr, "g"))
-			size = checked_multiply(size, 3);
-		else {
-			fprintf(stderr, "Invalid suffix \"%s\" specified.\n", ptr);
-			return -1;
-		}
+	if (!strcasecmp(ptr, "k"))
+		size = checked_multiply(size, 1);
+	else if (!strcasecmp(ptr, "m"))
+		size = checked_multiply(size, 2);
+	else if (!strcasecmp(ptr, "g"))
+		size = checked_multiply(size, 3);
+	else if (*ptr) {
+		fprintf(stderr, "Invalid suffix \"%s\" specified.\n", ptr);
+		return -1;
+	}
 
-		if (size == -1) {
-			fprintf(stderr,
-				"Size out of range; it must be within 0 and %lld bytes.\n",
-				LLONG_MAX);
-			return -1;
-		}
+	if (size == -1) {
+		fprintf(stderr,
+			"Size out of range; it must be within 0 and %lld bytes.\n",
+			LLONG_MAX);
+		return -1;
 	}
 
 	return size;
