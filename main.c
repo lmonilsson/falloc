@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 
 #include "options.h"
@@ -23,8 +25,9 @@ void print_usage(const char *program) {
 
 int do_allocate(int fd, long long size)
 {
-	if (ftruncate(fd, size) < 0) {
-		perror("ftruncate");
+	int err;
+	if ((err = posix_fallocate(fd, 0, size)) != 0) {
+		fprintf(stderr, "%s\n", strerror(err));
 		return -1;
 	}
 
