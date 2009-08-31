@@ -31,10 +31,10 @@ int do_allocate(int fd, long long size)
 	return 0;
 }
 
-int allocate(const char *filename, long long size) {
+int allocate(const char *filename, long long size, int force) {
 	int flags = O_WRONLY | O_CREAT;
 
-	if (!fallocate_options.force)
+	if (force)
 		flags |= O_EXCL;
 
 	int fd = open(filename, flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
@@ -58,7 +58,8 @@ int main(int argc, char *argv[])
 		return (ret == 0) ? 0 : 1;
 	}
 
-	ret = allocate(fallocate_options.filename, fallocate_options.size);
+	ret = allocate(fallocate_options.filename, fallocate_options.size,
+	               fallocate_options.force);
 
 	return (ret == 0) ? 0 : 1;
 }
