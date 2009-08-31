@@ -34,7 +34,7 @@ int do_allocate(int fd, long long size)
 int allocate(const char *filename, long long size, int force) {
 	int flags = O_WRONLY | O_CREAT;
 
-	if (force)
+	if (!force)
 		flags |= O_EXCL;
 
 	int fd = open(filename, flags, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
