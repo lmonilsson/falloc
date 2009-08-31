@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -std=gnu99
 
-SRCS = main.c parse.c options.c
+SRCS = main.c parse_size.c options.c
 OBJS = $(SRCS:.c=.o)
 EXEC = fallocate
 
@@ -19,9 +19,9 @@ test: $(TEST_EXEC)
 	./$(TEST_EXEC)
 
 main.o: options.h
-parse.o: parse.h options.h
-options.o: parse.h options.h
-testing.o: parse.h options.h
+parse.o: parse_size.h options.h
+options.o: parse_size.h options.h
+testing.o: parse_size.h options.h
 
 clean:
 	rm -f $(EXEC)

@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 #include "options.h"
-#include "parse.h"
+#include "parse_size.h"
 
 struct fallocate_options fallocate_options = {
 	.byte_multiplier = 1024,

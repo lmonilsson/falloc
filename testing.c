@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include "parse.h"
+#include "parse_size.h"
 #include "options.h"
 
 int test_parse_size(const char *str, long long expected)
