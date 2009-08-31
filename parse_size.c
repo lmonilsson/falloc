@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <strings.h>
 #include <limits.h>
 
 #include "options.h"
@@ -41,16 +41,14 @@ long long parse_size(const char *str)
 	}
 
 	if (*ptr != '\0') {
-		char suffix = tolower(*ptr);
-
-		if (suffix == 'k')
+		if (!strcasecmp(ptr, "k"))
 			size = checked_multiply(size, 1);
-		else if (suffix == 'm')
+		else if (!strcasecmp(ptr, "m"))
 			size = checked_multiply(size, 2);
-		else if (suffix == 'g')
+		else if (!strcasecmp(ptr, "g"))
 			size = checked_multiply(size, 3);
 		else {
-			fprintf(stderr, "Invalid suffix '%c' specified.\n", suffix);
+			fprintf(stderr, "Invalid suffix \"%s\" specified.\n", ptr);
 			return -1;
 		}
 

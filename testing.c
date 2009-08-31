@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 	errors += test_parse_size("10g", 1024ll * 1024 * 1024 * 10);
 	errors += test_parse_size("1024g", 1024ll * 1024 * 1024 * 1024);
 
+	errors += test_parse_size("1kb", -1);
 	errors += test_parse_size("a", -1);
 	errors += test_parse_size("1a", -1);
 	errors += test_parse_size("a1", -1);
