@@ -1,2 +1,0 @@
-falloc:
-	make -C src
